@@ -6,6 +6,11 @@ const getObjectSelector = (state:AppStateType) => {
 };
 export const getObjectProduct = createSelector(getObjectSelector, (product) => product);
 
+const getSizeSelectSelector = (state:AppStateType) => {
+	return state.productObject.sizeSelect;
+};
+export const getSizeSelect = createSelector(getSizeSelectSelector, (sizeSelect) => sizeSelect);
+
 
 const getObjectInitializedSelector = (state:AppStateType) => {
 	return state.productObject.initialized;

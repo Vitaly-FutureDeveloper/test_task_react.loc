@@ -83,7 +83,7 @@ export const deleteCardTC = (id:number, color:string, size:number):ThunkType => 
 export const setProductCardTC = (id:number, color:string, size:number):ThunkType => {
 	return async (dispatch) => {
 		setProductCard(id, color, size)
-		dispatch( initialCardTC() )
+		// dispatch( initialCardTC() )
 	}
 };
 

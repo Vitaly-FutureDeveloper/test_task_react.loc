@@ -6,6 +6,8 @@ export interface ProductListInterface {
 export interface ProductObjectInterface {
 	initialized: boolean,
 	product: ProductListType | null,
+	// colorSelect: Array<string> | null,
+	sizeSelect: Array<ProductSizeSelectType> | null
 };
 
 export interface ProductCardInterface {
@@ -21,11 +23,17 @@ export type ProductListType = {
 };
 
 export type ProductColorType = {
-	id: 1,
+	id: number,
 	name: string,
 	images: Array<string>,
 	price: string,
 	description: string,
 	sizes: Array<number>,
+}
+
+export type ProductSizeSelectType = {
+	id: number
+	label: string
+	number: number
 }
 

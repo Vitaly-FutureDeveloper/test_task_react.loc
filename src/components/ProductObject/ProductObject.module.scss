@@ -1,3 +1,57 @@
 .productObjectSection{
-
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
+
+.sliderBlock{
+	position: relative;
+	display: flex;
+
+	width: 250px;
+	height: 320px;
+
+	overflow: hidden;
+
+	margin-bottom: 30px;
+
+	&:hover,
+	&:focus{
+		.btn_prev,
+		.btn_next{
+			display: block;
+		}
+	}
+}
+.imageBlock{
+	transition: 0.2s;
+	display: flex;
+	position: relative;
+	top: 10px;
+	width: auto;
+
+	img{
+		width: 250px;
+	}
+}
+
+.btn_prev,
+.btn_next{
+	position: absolute;
+	display: none;
+
+	z-index: 2;
+}
+
+.btn_prev{
+	left: 0;
+}
+.btn_next{
+	right: 0;
+}
+.productObjectChanger{
+	display: flex;
+	flex-direction: column;
+}
+

@@ -1,10 +1,12 @@
-import {ProductListType, ProductObjectInterface} from "../../types/ReduxTypes";
+import {ProductListType, ProductObjectInterface, ProductSizeSelectType} from "../../types/ReduxTypes";
 import {BaseThunkType, InferActionsTypes} from "../store";
-import {getProduct} from "../../services/api"
+import {getProduct, getSizes} from "../../services/api"
 
 const initialState = {
 	initialized: false,
-	product: null as ProductListType | null
+	product: null as ProductListType | null,
+	// colorSelect: null,
+	sizeSelect: null
 } as ProductObjectInterface;
 
 
@@ -22,6 +24,13 @@ const objectReducer = (state=initialState, action:ActionsTypes): InitialStateTyp
 			return {
 				...state,
 				product: action.product
+			}
+		}
+
+		case "SN/productObject/INITIAL_SIZE_SELECT": {
+			return {
+				...state,
+				sizeSelect: action.sizes
 			}
 		}
 
@@ -52,6 +61,11 @@ export const actions = {
 		product
 	}) as const,
 
+	initialSizeSelect : (sizes: Array<ProductSizeSelectType>) => ({
+		type: "SN/productObject/INITIAL_SIZE_SELECT",
+		sizes
+	}) as const,
+
 	clearProductObject : () => ({
 		type: "SN/productObject/CLEAR_PRODUCT_OBJECT",
 	}) as const,
@@ -67,12 +81,17 @@ export const initialProductObjectTC = (id:number):ThunkType => {
 		dispatch(actions.initializedProductObject(false));
 		try{
 			const productObject = await getProduct(id);
+			const sizesSelect = await getSizes();
+
 			dispatch(actions.initialProductObject(productObject));
+			dispatch(actions.initialSizeSelect(sizesSelect as Array<ProductSizeSelectType>));
 			dispatch(actions.initializedProductObject(true));
 		} catch (e) {
 			throw e;
 		}
 	}
 };
+
+
 
 export default objectReducer;
