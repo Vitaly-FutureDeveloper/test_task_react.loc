@@ -2,14 +2,14 @@ import {createSelector} from 'reselect';
 import {AppStateType} from "../store";
 
 const getProductBrandsSelector = (state:AppStateType) => {
-	return state.sidebar.brands;
+	return state.productCard.card;
 };
-export const getProductBrands = createSelector(getProductBrandsSelector, (brandsCheckboxes) => brandsCheckboxes);
+export const getProductCard = createSelector(getProductBrandsSelector, (brandsCheckboxes) => brandsCheckboxes);
 
 
 const getSidebarInitializedSelector = (state:AppStateType) => {
-	return state.sidebar.initialized;
+	return state.productCard.initialized;
 };
-export const getSidebarInitialized = createSelector(getSidebarInitializedSelector, (initialized) => initialized);
+export const getCardInitialized = createSelector(getSidebarInitializedSelector, (initialized) => initialized);
 
 

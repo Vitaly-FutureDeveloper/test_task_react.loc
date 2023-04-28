@@ -25,6 +25,14 @@ const objectReducer = (state=initialState, action:ActionsTypes): InitialStateTyp
 			}
 		}
 
+		case "SN/productObject/CLEAR_PRODUCT_OBJECT": {
+			return {
+				...state,
+				initialized: false,
+				product: null,
+			};
+		}
+
 		case "SN/productObject/INITIALIZED": {
 			return {
 				...state,
@@ -42,6 +50,10 @@ export const actions = {
 	initialProductObject : (product: any) => ({
 		type: "SN/productObject/INITIAL_PRODUCT_OBJECT",
 		product
+	}) as const,
+
+	clearProductObject : () => ({
+		type: "SN/productObject/CLEAR_PRODUCT_OBJECT",
 	}) as const,
 
 	initializedProductObject : (initialized: boolean) => ({
