@@ -6,22 +6,22 @@ import {Link} from "react-router-dom"
 
 interface PropsType {
 	id: number,
-	title: string,
-	category: string,
-	brand: string,
+	name: string,
+	photo: string,
 };
 
-export const Product: React.FC<PropsType> = ({id, title, category, brand}) => {
+export const Product: React.FC<PropsType> = ({id, name, photo}) => {
 	const dispatch = useDispatch<any>();
 
-	const onClickObject = () => {
 
-	};
 
 	return (
 		<li className={styles.productList__item}>
 			<Link to={`/object?id=${id}`}>
-
+				<div className={styles.productList__block}>
+					<img src={photo} alt={"Фото товара"} />
+					<p>{name}</p>
+				</div>
 			</Link>
 		</li>
 	);

@@ -58,7 +58,7 @@ export const initialProductsListTC = (page:number = 1): ThunkType => {
 		try {
 			const productList = await getProducts();
 
-			dispatch(actions.initialProductsList(productList.products));
+			dispatch(actions.initialProductsList(productList));
 			dispatch(actions.initializedList(true));
 		} catch (e) {
 			throw e;

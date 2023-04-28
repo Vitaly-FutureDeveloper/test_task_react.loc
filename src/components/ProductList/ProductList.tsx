@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {initialProductsListTC} from "../../redux/list-reducer/list-reducer";
 import {getProductList, getProductListInitialized} from "../../redux/list-reducer/list-selectors";
 import LoadingSpinner from "../spinners/LoadingSpinner/LoadingSpinner";
+import {Product} from "./Product/Product";
 
 export const ProductList:React.FC = () => {
 	const dispatch = useDispatch<any>();
@@ -23,8 +24,11 @@ export const ProductList:React.FC = () => {
 			:
 
 			<section className={styles.productListPage}>
-
-
+				<ul className={styles.productList}>
+					{
+						productList.map((product) => <Product key={product.id} id={product.id} name={product.colors[0].name} photo={product.colors[0].images[0]} />)
+					}
+				</ul>
 			</section>
 	)
 };

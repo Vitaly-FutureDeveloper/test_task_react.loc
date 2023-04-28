@@ -1,17 +1,16 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 
 import App from './App'
 
 import './styles/index.css'
 
-const rootView = document.getElementById('root')
 
+const rootView = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 if (rootView) {
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    rootView
-  )
+	rootView.render(
+		<React.StrictMode>
+			<App/>
+		</React.StrictMode>
+	);
 }

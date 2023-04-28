@@ -25,3 +25,5 @@ export const Card: React.FC = () => {
 			</section>
 	)
 };
+
+export default React.memo(Card);

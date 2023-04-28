@@ -1,3 +1,11 @@
 .productList__item{
+	overflow: hidden;
 
+	&:not(:last-child){
+		margin-right: 25px;
+	}
+}
+
+.productList__block{
+	width: 250px;
 }
