@@ -1,4 +1,5 @@
 .productList__item {
+	width: fit-content;
 	overflow: hidden;
 
 	&:not(:last-child) {

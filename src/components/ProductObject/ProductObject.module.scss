@@ -1,11 +1,11 @@
-.productObjectSection{
+.productObjectSection {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.sliderBlock{
+.sliderBlock {
 	position: relative;
 	display: flex;
 
@@ -17,40 +17,43 @@
 	margin-bottom: 30px;
 
 	&:hover,
-	&:focus{
+	&:focus {
 		.btn_prev,
-		.btn_next{
+		.btn_next {
 			display: block;
 		}
 	}
 }
-.imageBlock{
+
+.imageBlock {
 	transition: 0.2s;
 	display: flex;
 	position: relative;
 	top: 10px;
 	width: auto;
 
-	img{
+	img {
 		width: 250px;
 	}
 }
 
 .btn_prev,
-.btn_next{
+.btn_next {
 	position: absolute;
 	display: none;
 
 	z-index: 2;
 }
 
-.btn_prev{
+.btn_prev {
 	left: 0;
 }
-.btn_next{
+
+.btn_next {
 	right: 0;
 }
-.productObjectChanger{
+
+.productObjectChanger {
 	display: flex;
 	flex-direction: column;
 }

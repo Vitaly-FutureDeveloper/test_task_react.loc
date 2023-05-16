@@ -1,0 +1,31 @@
+.cardIconBlock {
+	position: relative;
+	margin-left: auto;
+	margin-right: 10%;
+
+	width: 45px;
+	height: 45px;
+	background-image: url("../../../assets/img/shopping-cart-icon.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+.cardIconBlock__count {
+	position: absolute;
+	top: 0;
+	right: -5px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 12px;
+	line-height: 12px;
+
+	width: 20px;
+	height: 20px;
+
+	background-color: green;
+	border-radius: 50%;
+}

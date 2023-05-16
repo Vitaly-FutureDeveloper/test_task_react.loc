@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {useSearchParams} from "react-router-dom";
-import styles from "./ProductObject.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {actions, initialProductObjectTC} from "../../redux/object-reducer/object-reducer";
-import {getObjectInitialized, getObjectProduct, getSizeSelect} from "../../redux/object-reducer/object-selectors";
-import LoadingSpinner from "../spinners/LoadingSpinner/LoadingSpinner";
-import {setProductCardTC} from "../../redux/card-reducer/card-reducer";
+import React, {useEffect, useState} from "react"
+import {useSearchParams} from "react-router-dom"
+import styles from "./ProductObject.module.scss"
+import {useDispatch, useSelector} from "react-redux"
+import {actions, initialProductObjectTC} from "../../redux/object-reducer/object-reducer"
+import {getObjectInitialized, getObjectProduct, getSizeSelect} from "../../redux/object-reducer/object-selectors"
+import LoadingSpinner from "../spinners/LoadingSpinner/LoadingSpinner"
+import {setProductCardTC} from "../../redux/card-reducer/card-reducer"
 
 export const ProductObject: React.FC = () => {
 	const dispatch = useDispatch<any>()
@@ -18,24 +18,24 @@ export const ProductObject: React.FC = () => {
 	const [currentSize, setCurrentSize] = useState<any>()
 
 	//Slider
-	const translateStep = 250;
-	const [sliderTranslate, setSliderTranslate] = useState(0);
-	const [sliderCounter, setSliderCounter] = useState(1);
+	const translateStep = 250
+	const [sliderTranslate, setSliderTranslate] = useState(0)
+	const [sliderCounter, setSliderCounter] = useState(1)
 
 	const onSliderPlus = () => {
-		if(sliderTranslate >= ((productObject?.colors[currentColorIndex]?.images.length -1) * translateStep)){
+		if (sliderTranslate >= ((productObject?.colors[currentColorIndex]?.images.length - 1) * translateStep)) {
 			return;
 		}
-		setSliderTranslate(sliderTranslate + translateStep);
-		setSliderCounter(sliderCounter + 1);
+		setSliderTranslate(sliderTranslate + translateStep)
+		setSliderCounter(sliderCounter + 1)
 	};
 
 	const onSliderMinus = () => {
-		if(sliderTranslate === 0){
+		if (sliderTranslate === 0) {
 			return;
 		}
 		setSliderTranslate(sliderTranslate - translateStep)
-		setSliderCounter(sliderCounter - 1);
+		setSliderCounter(sliderCounter - 1)
 	};
 	//Slider
 
@@ -45,7 +45,7 @@ export const ProductObject: React.FC = () => {
 	const initialPage = useSelector(getObjectInitialized)
 
 	useEffect(() => {
-		const idParam = Number(searchParams.get('id'));
+		const idParam = Number(searchParams.get('id'))
 
 		dispatch(initialProductObjectTC(idParam))
 
@@ -59,6 +59,7 @@ export const ProductObject: React.FC = () => {
 
 		setColors(colorsFromProducts)
 		setCurrentColorIndex(indexColorFind)
+
 		colorsFromProducts && setCurrentColor(colorsFromProducts[0]?.id)
 
 		return () => {
@@ -71,13 +72,13 @@ export const ProductObject: React.FC = () => {
 		const sizesFromProducts = sizeSelect?.filter((size) => productObject?.colors[currentColorIndex]?.sizes.includes(size.id));
 
 		setSizes(sizesFromProducts)
+		sizesFromProducts && setCurrentSize(sizesFromProducts[0]?.id);
 		setCurrentColorIndex(indexColorFind)
 
 		return () => {
 			setSizes(null)
 		}
 	}, [currentColor, productObject, sizeSelect, currentColorIndex])
-
 
 
 	const handleColorChange = (evt) => {
@@ -89,7 +90,7 @@ export const ProductObject: React.FC = () => {
 	}
 
 	const setToCard = () => {
-		dispatch( setProductCardTC(productObject.id, colors[currentColorIndex].id, currentSize) )
+		dispatch(setProductCardTC(productObject.id, colors[currentColorIndex].id, currentSize))
 	}
 
 	return (
@@ -103,9 +104,9 @@ export const ProductObject: React.FC = () => {
 				<div className={styles.sliderBlock}>
 					<button className={styles.btn_prev} onClick={onSliderMinus}>Назад</button>
 					<button className={styles.btn_next} onClick={onSliderPlus}>Вперёд</button>
-					<div className={styles.imageBlock} style={{ transform: `translateX(${-sliderTranslate}px)`}}>
+					<div className={styles.imageBlock} style={{transform: `translateX(${-sliderTranslate}px)`}}>
 						{
-							productObject?.colors[currentColorIndex]?.images?.map((image, i) => <img key={image} src={image} alt=""/>)
+							productObject?.colors[currentColorIndex]?.images?.map((image) => <img key={image} src={image} alt=""/>)
 						}
 					</div>
 				</div>
@@ -122,7 +123,7 @@ export const ProductObject: React.FC = () => {
 					<label>Размер:
 						<select name="size" value={currentSize} onChange={handleSizeChange}>
 							{
-								sizes?.map((select) => <option key={select.id} value={select.id}>{select.label}</option> )
+								sizes?.map((select) => <option key={select.id} value={select.id}>{select.label}</option>)
 							}
 						</select>
 					</label>
@@ -135,6 +136,6 @@ export const ProductObject: React.FC = () => {
 
 			</section>
 	)
-};
+}
 
-export default ProductObject;
+export default ProductObject

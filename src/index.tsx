@@ -12,5 +12,5 @@ if (rootView) {
 		<React.StrictMode>
 			<App/>
 		</React.StrictMode>
-	);
+	)
 }

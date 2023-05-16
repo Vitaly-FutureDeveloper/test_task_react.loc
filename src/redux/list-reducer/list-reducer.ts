@@ -1,19 +1,18 @@
 import {ProductListInterface} from "../../types/ReduxTypes"
 import {BaseThunkType, InferActionsTypes} from "../store"
-import {ResponseProductType} from "../../types/ResponseTypes"
 
 import {getProducts} from "../../services/api"
 
 const initialState = {
 	initialized: false,
 	products: [],
-} as ProductListInterface;
+} as ProductListInterface
 
 
-export type InitialStateType = typeof initialState;
-type ActionsTypes = InferActionsTypes<typeof actions>;
+export type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type ThunkType = BaseThunkType<ActionsTypes>;
+type ThunkType = BaseThunkType<ActionsTypes>
 
 
 const listReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -24,21 +23,20 @@ const listReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 			return {
 				...state,
 				products: action.products
-			};
+			}
 		}
 
 		case "SN/productList/INITIALIZED": {
 			return {
 				...state,
 				initialized: action.initialized
-			};
+			}
 		}
 
-
 		default:
-			return state;
+			return state
 	}
-};
+}
 
 export const actions = {
 	initialProductsList: (products: any) => ({
@@ -50,22 +48,21 @@ export const actions = {
 		type: "SN/productList/INITIALIZED",
 		initialized
 	}) as const,
-};
+}
 
-export const initialProductsListTC = (page:number = 1): ThunkType => {
+export const initialProductsListTC = (page: number = 1): ThunkType => {
 	return async (dispatch) => {
-		dispatch(actions.initializedList(false));
+		dispatch(actions.initializedList(false))
 		try {
-			const productList = await getProducts();
+			const productList = await getProducts()
 
-			dispatch(actions.initialProductsList(productList));
-			dispatch(actions.initializedList(true));
+			dispatch(actions.initialProductsList(productList))
+			dispatch(actions.initializedList(true))
 		} catch (e) {
-			throw e;
+			throw e
 		}
 	}
-};
-
+}
 
 
 export default listReducer;

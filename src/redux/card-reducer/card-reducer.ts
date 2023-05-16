@@ -1,94 +1,109 @@
-import {ProductCardInterface} from "../../types/ReduxTypes"
+import {ProductCardInterface, ProductListType} from "../../types/ReduxTypes"
 import {BaseThunkType, InferActionsTypes} from "../store"
 import {deleteProductCard, getCard, setProductCard} from "../../services/cardAPI"
-import {getProductColor} from "../../services/api"
+import {getProduct, getProductColor, getSize} from "../../services/api"
 
 const initialState = {
 	initialized: false,
 	card: [],
-} as ProductCardInterface;
+} as ProductCardInterface
 
 
-export type InitialStateType = typeof initialState;
-type ActionsTypes = InferActionsTypes<typeof actions>;
+export type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type ThunkType = BaseThunkType<ActionsTypes>;
+type ThunkType = BaseThunkType<ActionsTypes>
 
 
-const cardReducer = (state=initialState, action:ActionsTypes): InitialStateType => {
+const cardReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
-	switch (action.type){
+	switch (action.type) {
 
 		case "SN/sidebar/INITIAL_CARD": {
 			return {
 				...state,
 				card: action.card
-			};
+			}
 		}
-
-
 
 		case "SN/sidebar/INITIALIZED": {
 			return {
 				...state,
 				initialized: action.initialized
-			};
+			}
 		}
 
-
 		default:
-			return state;
+			return state
 	}
-};
+}
 
 export const actions = {
-	initialCard : (card: any) => ({
+	initialCard: (card: any) => ({
 		type: "SN/sidebar/INITIAL_CARD",
 		card
 	}) as const,
 
-	initializedSidebar : (initialized: boolean) => ({
+	initializedCard: (initialized: boolean) => ({
 		type: "SN/sidebar/INITIALIZED",
 		initialized
 	}) as const,
-};
+}
 
-export const initialCardTC = ():ThunkType => {
+export const initialCardTC = (): ThunkType => {
 	return async (dispatch) => {
-		dispatch(actions.initializedSidebar(false))
+		dispatch(actions.initializedCard(false))
 
 		const products = getCard()
-		const productsColors = products.map((product) => getProductColor(product.id, product.name))
 
-		Promise.all(productsColors).then((card) => {
-			const withSizes = card.map((item) => ({
-				...item,
-				...item.colors,
-				sizes: [item.size]
-			}))
-			dispatch(actions.initialCard(withSizes))
+		const productsId = products.map((product) => getProduct(product.id) as ProductListType)
 
-			dispatch(actions.initializedSidebar(true))
+		Promise.all(productsId).then((card) => {
+
+			const withColors = products.map(async (item) => {
+				const productColor = await getProductColor(item.id, item.color)
+				return {
+					...item,
+					colors: productColor,
+				}
+			})
+
+			return Promise.all(withColors)
+
+		}).then((card) => {
+
+			const withSizesColors = products.map(async (item, i) => {
+				const productSize = await getSize(+item.size)
+
+				const body = JSON.parse(JSON.stringify(card[i]))
+				body.colors.sizes = productSize
+
+				return body
+			})
+
+			return Promise.all(withSizesColors)
+		}).then((finalCard) => {
+
+			dispatch(actions.initialCard(finalCard))
+
+			dispatch(actions.initializedCard(true))
 		})
 	}
-};
+}
 
-export const deleteCardTC = (id:number, color:string, size:number):ThunkType => {
+export const deleteCardTC = (id: number, color: number, size: number): ThunkType => {
 	return async (dispatch) => {
 		deleteProductCard(id, color, size)
-		dispatch( initialCardTC() )
+		dispatch(initialCardTC())
 	}
-};
+}
 
-export const setProductCardTC = (id:number, color:string, size:number):ThunkType => {
+export const setProductCardTC = (id: number, color: number, size: number): ThunkType => {
 	return async (dispatch) => {
 		setProductCard(id, color, size)
-		// dispatch( initialCardTC() )
+		dispatch(initialCardTC())
 	}
-};
+}
 
 
-
-
-
-export default cardReducer;
+export default cardReducer

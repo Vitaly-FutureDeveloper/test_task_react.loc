@@ -1,5 +1,5 @@
-import {ProductListType, ProductObjectInterface, ProductSizeSelectType} from "../../types/ReduxTypes";
-import {BaseThunkType, InferActionsTypes} from "../store";
+import {ProductListType, ProductObjectInterface, ProductSizeSelectType} from "../../types/ReduxTypes"
+import {BaseThunkType, InferActionsTypes} from "../store"
 import {getProduct, getSizes} from "../../services/api"
 
 const initialState = {
@@ -7,18 +7,18 @@ const initialState = {
 	product: null as ProductListType | null,
 	// colorSelect: null,
 	sizeSelect: null
-} as ProductObjectInterface;
+} as ProductObjectInterface
 
 
-export type InitialStateType = typeof initialState;
-type ActionsTypes = InferActionsTypes<typeof actions>;
+export type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type ThunkType = BaseThunkType<ActionsTypes>;
+type ThunkType = BaseThunkType<ActionsTypes>
 
 
-const objectReducer = (state=initialState, action:ActionsTypes): InitialStateType => {
+const objectReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
 
-	switch (action.type){
+	switch (action.type) {
 
 		case "SN/productObject/INITIAL_PRODUCT_OBJECT": {
 			return {
@@ -53,33 +53,33 @@ const objectReducer = (state=initialState, action:ActionsTypes): InitialStateTyp
 		default:
 			return state;
 	}
-};
+}
 
 export const actions = {
-	initialProductObject : (product: any) => ({
+	initialProductObject: (product: any) => ({
 		type: "SN/productObject/INITIAL_PRODUCT_OBJECT",
 		product
 	}) as const,
 
-	initialSizeSelect : (sizes: Array<ProductSizeSelectType>) => ({
+	initialSizeSelect: (sizes: Array<ProductSizeSelectType>) => ({
 		type: "SN/productObject/INITIAL_SIZE_SELECT",
 		sizes
 	}) as const,
 
-	clearProductObject : () => ({
+	clearProductObject: () => ({
 		type: "SN/productObject/CLEAR_PRODUCT_OBJECT",
 	}) as const,
 
-	initializedProductObject : (initialized: boolean) => ({
+	initializedProductObject: (initialized: boolean) => ({
 		type: "SN/productObject/INITIALIZED",
 		initialized
 	}) as const,
-};
+}
 
-export const initialProductObjectTC = (id:number):ThunkType => {
+export const initialProductObjectTC = (id: number): ThunkType => {
 	return async (dispatch) => {
 		dispatch(actions.initializedProductObject(false));
-		try{
+		try {
 			const productObject = await getProduct(id);
 			const sizesSelect = await getSizes();
 
@@ -90,8 +90,7 @@ export const initialProductObjectTC = (id:number):ThunkType => {
 			throw e;
 		}
 	}
-};
+}
 
 
-
-export default objectReducer;
+export default objectReducer
