@@ -91,7 +91,7 @@ function getSize(id) {
 
 function getProducts() {
 	return new Promise((resolve) => {
-		setTimeout(() => resolve(products), 2150)
+		setTimeout(() => resolve(products), 250)
 	})
 }
 

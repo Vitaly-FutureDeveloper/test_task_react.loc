@@ -15,7 +15,7 @@ export const CardIconBlock: React.FC = () => {
 	const [zeroLengthStyle, setZeroLengthStyle] = useState({backgroundColor: BACKGROUND_ICON.zero})
 
 	useEffect(() => {
-		if(productCard.length === 0) {
+		if (productCard.length === 0) {
 			setZeroLengthStyle({backgroundColor: BACKGROUND_ICON.zero})
 		} else {
 			setZeroLengthStyle({backgroundColor: BACKGROUND_ICON.many})

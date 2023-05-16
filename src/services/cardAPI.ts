@@ -1,8 +1,8 @@
-function getCard() : Array<{id:number, color:number, size:number}> {
+function getCard(): Array<{ id: number, color: number, size: number }> {
 	return JSON.parse(localStorage.getItem('card'))
 }
 
-function setProductCard(id: number, color: number, size: number) : void {
+function setProductCard(id: number, color: number, size: number): void {
 	//Проверка на уникальность - если нет товара в корзине
 	const card = getCard() || []
 
@@ -17,7 +17,7 @@ function setProductCard(id: number, color: number, size: number) : void {
 	}
 }
 
-function deleteProductCard(id: number, color: number, size: number) : void {
+function deleteProductCard(id: number, color: number, size: number): void {
 	//Проверка на уникальность - если нет товара в корзине
 	const card = getCard()
 	const totalProducts = card?.filter((product) => product.id != id || product.color != color || product.size != size)

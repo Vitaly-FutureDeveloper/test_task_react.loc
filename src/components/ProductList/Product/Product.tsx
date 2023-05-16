@@ -1,6 +1,5 @@
 import React from "react"
 import styles from "./Product.module.scss"
-import {useDispatch} from "react-redux"
 import {Link} from "react-router-dom"
 
 

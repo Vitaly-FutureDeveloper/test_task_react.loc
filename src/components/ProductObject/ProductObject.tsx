@@ -6,6 +6,7 @@ import {actions, initialProductObjectTC} from "../../redux/object-reducer/object
 import {getObjectInitialized, getObjectProduct, getSizeSelect} from "../../redux/object-reducer/object-selectors"
 import LoadingSpinner from "../spinners/LoadingSpinner/LoadingSpinner"
 import {setProductCardTC} from "../../redux/card-reducer/card-reducer"
+import PhotoSlider from "../simples/PhotoSlider/PhotoSlider";
 
 export const ProductObject: React.FC = () => {
 	const dispatch = useDispatch<any>()
@@ -13,31 +14,9 @@ export const ProductObject: React.FC = () => {
 
 	const [colors, setColors] = useState()
 	const [sizes, setSizes] = useState()
-	const [currentColor, setCurrentColor] = useState<any>()
-	const [currentColorIndex, setCurrentColorIndex] = useState<any>(0)
-	const [currentSize, setCurrentSize] = useState<any>()
-
-	//Slider
-	const translateStep = 250
-	const [sliderTranslate, setSliderTranslate] = useState(0)
-	const [sliderCounter, setSliderCounter] = useState(1)
-
-	const onSliderPlus = () => {
-		if (sliderTranslate >= ((productObject?.colors[currentColorIndex]?.images.length - 1) * translateStep)) {
-			return;
-		}
-		setSliderTranslate(sliderTranslate + translateStep)
-		setSliderCounter(sliderCounter + 1)
-	};
-
-	const onSliderMinus = () => {
-		if (sliderTranslate === 0) {
-			return;
-		}
-		setSliderTranslate(sliderTranslate - translateStep)
-		setSliderCounter(sliderCounter - 1)
-	};
-	//Slider
+	const [currentColor, setCurrentColor] = useState<number>()
+	const [currentColorIndex, setCurrentColorIndex] = useState<number>(0)
+	const [currentSize, setCurrentSize] = useState()
 
 	const productObject = useSelector(getObjectProduct)
 	const sizeSelect = useSelector(getSizeSelect)
@@ -101,15 +80,11 @@ export const ProductObject: React.FC = () => {
 
 			<section className={styles.productObjectSection}>
 
-				<div className={styles.sliderBlock}>
-					<button className={styles.btn_prev} onClick={onSliderMinus}>Назад</button>
-					<button className={styles.btn_next} onClick={onSliderPlus}>Вперёд</button>
-					<div className={styles.imageBlock} style={{transform: `translateX(${-sliderTranslate}px)`}}>
-						{
-							productObject?.colors[currentColorIndex]?.images?.map((image) => <img key={image} src={image} alt=""/>)
-						}
-					</div>
-				</div>
+				{
+					productObject?.colors[currentColorIndex]?.images
+					&&
+					<PhotoSlider images={productObject.colors[currentColorIndex].images}/>
+				}
 
 				<div className={styles.productObjectChanger}>
 					<label>Цвет:
