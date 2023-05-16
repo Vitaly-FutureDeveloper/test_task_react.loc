@@ -1,10 +1,10 @@
 import React, {useState} from "react"
 import styles from "./PhotoSlider.module.scss"
-import {NavLink} from "react-router-dom"
 
 interface PropsType {
 	images: Array<any>
 }
+
 export const PhotoSlider: React.FC<PropsType> = ({images}) => {
 
 	const translateStep = 250
